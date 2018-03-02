@@ -20,10 +20,18 @@ var sliderSettings = {
     }
     var value = [0];
 
+function handleDragMove(value){
+
+
+}
+
+function handleDragEnd(value){
+console.log(value)
+}
 const App = () => (
 
-  <div>
-    <Slider value={value} settings={sliderSettings} />
+  <div style={{padding:"50px"}}>
+    <Slider value={value} settings={sliderSettings} onDragMove={handleDragMove} onDragEnd={handleDragEnd}/>
   </div>
 );
 
