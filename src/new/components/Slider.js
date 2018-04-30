@@ -10,21 +10,43 @@ class SliderNew extends Component {
         this.state = {
             sliderId: "slider" + Math.floor((Math.random() * 100000) + 1),
             sliderHeight:0,
-            handlePosition:250,
-            value:30
+            value:0,
+            dragEnded:false
         };
     }
 
     componentDidMount(){
         var sliderHeight = document.getElementById(this.state.sliderId).clientHeight;
+        var value = parseInt(this.props.value[0],10);
         this.setState({
-            sliderHeight: sliderHeight
+            sliderHeight: sliderHeight,
+            value:value
         })
     }
 
-    handleChange( obj ){
+    componentDidUpdate( prevProps, prevState ){
+        if( this.state.dragEnded===true ){
+            this.props.onDragEnd(this.state.value)
+        }
+    }
+
+    handleLoad( obj ){
         this.setState({
             handlePosition: obj.position
+        })
+    }
+
+    handleDrag( obj ){
+        this.setState({
+            handlePosition: obj.position,
+            value: obj.value,
+            dragEnded:false
+        })
+    }
+
+    handleDragEnded(){
+        this.setState({
+            dragEnded:true
         })
     }
 
@@ -35,7 +57,7 @@ class SliderNew extends Component {
     }
 
     renderPips(){
-        return <SliderPips sliderHeight={this.state.sliderHeight} min="0" max="50" density="10" onClick={this.handleValueClick.bind(this)}/>
+        return <SliderPips sliderHeight={this.state.sliderHeight} min="0" max="100" density="10" onClick={this.handleValueClick.bind(this)}/>
     }
 
     renderBars(){
@@ -44,7 +66,7 @@ class SliderNew extends Component {
     }
 
     renderHandles(){
-        return <SliderHandles sliderHeight={this.state.sliderHeight} value={this.state.value} valueMin="0" valueMax="50" rangeMin="0" rangeMax="50" onLoad={this.handleChange.bind(this)} onDrag={this.handleChange.bind(this)}/>
+        return <SliderHandles sliderHeight={this.state.sliderHeight} value={this.state.value} valueMin="0" valueMax="100" rangeMin="0" rangeMax="100" onLoad={this.handleLoad.bind(this)} onDrag={this.handleDrag.bind(this)} onDragEnded={this.handleDragEnded.bind(this)}/>
     }
 
     renderVerticalSlider(){

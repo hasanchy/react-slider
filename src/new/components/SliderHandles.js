@@ -72,7 +72,7 @@ class SliderHandles extends Component {
 
     componentWillReceiveProps( nextProps ){
         var nextPropsValue = parseInt(nextProps.value, 10);
-        console.log( nextPropsValue + " = " + this.props.value );
+        //console.log( nextPropsValue + " = " + this.props.value );
         if( nextPropsValue !== this.props.value ){
 
             var position = this.getPosition(nextPropsValue);
@@ -88,13 +88,13 @@ class SliderHandles extends Component {
 	}
 
     componentDidUpdate( prevProps, prevState ){
-        //if(this.state.drag){
+        if(this.state.drag){
             var obj = {
                 value:this.state.value,
                 position:this.state.position
             }
             this.props.onDrag(obj)
-        //}
+        }
     }
 
     getPosition(value){
@@ -149,7 +149,7 @@ class SliderHandles extends Component {
                 drag:false,
                 position:position
             })
-            //this.props.onDragEnd();
+            this.props.onDragEnded();
         }
     }
 

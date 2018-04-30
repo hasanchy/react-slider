@@ -23,7 +23,7 @@ class SliderPips extends Component {
 
     handleValueClick(value, e){
         //console.log(e.target.value);
-        this.props.onClick(value)
+        //this.props.onClick(value)
     }
 
     renderPips(){
@@ -37,7 +37,7 @@ class SliderPips extends Component {
         var increament = density;
         while( pipValue <= max ){
             var position = this.getPipPosition(pipValue);
-            pips.push(<div style={{top:position+"px",right:"0px",position:"absolute",cursor:"pointer",padding:"3px 0px 3px 3px"}} key={Math.random()} onClick={this.handleValueClick.bind(this,pipValue)}>{pipValue}</div>);
+            pips.push(<div style={{top:position+"px",right:"0px",position:"absolute",padding:"3px 0px 3px 3px"}} key={Math.random()} onClick={this.handleValueClick.bind(this,pipValue)}>{pipValue}</div>);
             pipValue += increament;
         }
         return pips;

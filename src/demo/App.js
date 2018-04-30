@@ -47,6 +47,7 @@ function handleDragMove(value){
 }
 
 function handleDragEnd(value){
+    console.log( "Slider value recieved" );
     console.log(value)
 }
 const App = () => (
