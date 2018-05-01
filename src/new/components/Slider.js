@@ -26,10 +26,17 @@ class SliderNew extends Component {
         this.setClientHeight();
     }
 
+    componentDidUpdate(){
+        if( this.state.sliderHeight === 0 ){
+            this.setClientHeight();
+        }
+    }
+
     setClientHeight(){
-        var sliderHeight = document.getElementById(this.state.sliderId).clientHeight;
+        var element = document.getElementById(this.state.sliderId);
+        var clientHeight = (element) ? element.clientHeight : 0;
         this.setState({
-            sliderHeight: sliderHeight
+            sliderHeight:clientHeight
         })
     }
 
@@ -72,8 +79,8 @@ class SliderNew extends Component {
         }
 
         return(
-            <div style={{height:"100%",width:"40px",backgroundColor:"#EDF2F4",float:"right",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
-                <div style={{width:"100%",position:"absolute",top:"17px",bottom:"17px"}} id={this.state.sliderId}>
+            <div style={{height:"100%",width:"40px",backgroundColor:"#EDF2F4",float:"right",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed",padding:"17px 0 17px 0"}}>
+                <div style={{width:"100%",position:"relative",height:"100%"}} id={this.state.sliderId}>
                     {pips}
                     {bars}
                     {handles}
