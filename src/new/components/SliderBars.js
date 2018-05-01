@@ -16,7 +16,7 @@ class SliderBars extends Component {
 
     renderBars(){
         return (
-            <div style={{backgroundColor:"#FFFFFF",width:"6px",borderRadius:"20px",height:"100%",left:"17px",position:"absolute",border:"1px solid #e6ebed"}}>
+            <div style={{backgroundColor:"#FFFFFF",width:"8px",borderRadius:"20px",height:"100%",left:"16px",position:"absolute",border:"1px solid #e6ebed"}}>
                 <div style={{position:"absolute",width:"100%",top:"0px",bottom:"0px",backgroundColor:"#20907D",borderRadius:"20px"}}></div>
                 <div style={{position:"absolute",width:"100%",top:this.props.barPosition,bottom:"0px",backgroundColor:"#FFFFFF",borderRadius:"20px"}}></div>
             </div>

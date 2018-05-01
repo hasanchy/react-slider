@@ -72,7 +72,6 @@ class SliderHandles extends Component {
 
     componentWillReceiveProps( nextProps ){
         var nextPropsValue = parseInt(nextProps.value, 10);
-        //console.log( nextPropsValue + " = " + this.props.value );
         if( nextPropsValue !== this.props.value ){
 
             var position = this.getPosition(nextPropsValue);
@@ -149,7 +148,7 @@ class SliderHandles extends Component {
                 drag:false,
                 position:position
             })
-            this.props.onDragEnded();
+            this.props.onDragEnd(this.state.value);
         }
     }
 
@@ -167,11 +166,13 @@ class SliderHandles extends Component {
 
     renderHandles(){
         var display = (this.state.drag)?"block":"block";
+        var fontSize = (this.state.drag)?16:14;
+        var fontMarginTop = (fontSize/2)+1;
         return (
             <div style={{position:"absolute",top:this.state.position,cursor:"pointer"}} id={this.state.handleId}>
                 <div style={{width:"12px",height:"12px",backgroundColor:"white",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",left:"8px",marginTop:"-13px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>
                 <div style={{width:"16px",height:"1px",backgroundColor:"#134F63",position:"absolute",left:"-8px",marginTop:"-.5px"}}></div>
-                <div style={{display:display,marginTop:"-7px",right:"10px",position:"absolute",fontSize:"14px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{this.state.value}</div>
+                <div style={{display:display,marginTop:"-"+fontMarginTop+"px",right:"10px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{this.state.value}</div>
             </div>
         )
     }

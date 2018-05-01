@@ -45,7 +45,7 @@ class SliderPips extends Component {
 
     render() {
         return (
-            <div style={{height:"100%",marginLeft:"-10px",position:"absolute",textAlign:"right",fontSize:"11px",color:"#134F63",opacity:".5",marginTop:"-5.5px"}}>
+            <div style={{height:"100%",marginLeft:"-10px",position:"absolute",textAlign:"right",fontSize:"11px",color:"#134F63",opacity:".5",marginTop:"-10px"}}>
                 {this.renderPips()}
             </div>
         )
