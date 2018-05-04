@@ -34,12 +34,12 @@ var sliderSettingsVertical = {
     direction:'ltr', //ltr,rtl (for vertical orientation:ltr=ttb, rtl=btt)
     margin:25, //The minimum distance between the handles can be set using the margin option.,
     bar:{
-        colors:[ 'green','white', 'red', 'red', 'grey' ]
+        colors:[ '#20907D','#FFFFFF', '#D25A53', '#20907D' ]
     }
 }
 
 
-var value = [20,30];
+var value = [20,30,50];
 
 function handleDragMove(value){
 
@@ -47,8 +47,8 @@ function handleDragMove(value){
 }
 
 function handleDragEnd(value){
-    console.log( "Slider value recieved" );
-    console.log(value)
+    //console.log( "Slider value recieved" );
+    //console.log(value)
 }
 const App = () => (
 
