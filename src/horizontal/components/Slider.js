@@ -3,7 +3,7 @@ import SliderPips from './SliderPips';
 import SliderHandles from './SliderHandles';
 import SliderBars from './SliderBars';
 
-class SliderNew extends Component {
+class SliderHorizontal extends Component {
 
     constructor(props) {
         super(props);
@@ -32,11 +32,11 @@ class SliderNew extends Component {
 
     componentDidMount(){
         var element = document.getElementById(this.state.sliderId);
-        if(element && element.clientHeight > 0 ){
-            this.setClientHeight();
+        if(element && element.clientWidth > 0 ){
+            this.setClientWidth();
         }else{
             this.setState({
-                intervalId: setInterval(this.setClientHeight, 100)
+                intervalId: setInterval(this.setClientWidth, 100)
             })
         }
     }
@@ -54,8 +54,8 @@ class SliderNew extends Component {
             var previousIndex = i - 1;
             var nextIndex = i + 1;
 
-            var rangeMin = ( i === firstIndex ) ? valueMin : value[previousIndex];
-            var rangeMax = ( i === lastIndex ) ? valueMax : value[nextIndex];
+            var rangeMin = ( i === firstIndex ) ? valueMin+1 : value[previousIndex];
+            var rangeMax = ( i === lastIndex ) ? valueMax-2 : value[nextIndex];
             var settingsObj = {
                 value: value[i],
                 valueMin: valueMin,
@@ -99,11 +99,11 @@ class SliderNew extends Component {
         return zIndex;
     }
 
-    setClientHeight(){
+    setClientWidth(){
         var element = document.getElementById(this.state.sliderId);
-        if(element && element.clientHeight > 0 ){
+        if(element && element.clientWidth > 0 ){
             this.setState({
-                sliderHeight:element.clientHeight
+                sliderHeight:element.clientWidth
             })
             if(this.state.intervalId){
                 clearInterval(this.state.intervalId);
@@ -142,19 +142,23 @@ class SliderNew extends Component {
     handleDragEnd(index, value, position){
         var values = this.state.values;
         values[index] = value;
+
+        var barPositions = this.state.barPositions;
+        barPositions[index] = position;
         this.setState({
-            handleSettings:this.getHandleSettings(values,index)
+            handleSettings:this.getHandleSettings(values,index),
+            barPositions: barPositions
         })
         this.props.onDragEnd(values)
     }
 
     renderPips(){
-        return <SliderPips sliderHeight={this.state.sliderHeight} min="0" max="100" density="10" onClick={this.handleValueClick.bind(this)}/>
+        return <SliderPips sliderHeight={this.state.sliderHeight} min="0" max="10" density="10" onClick={this.handleValueClick.bind(this)}/>
     }
 
     renderBars(){
         var position = this.state.handlePosition+"px";
-        return <SliderBars barPosition={position} positions={this.state.barPositions} color={this.props.settings.bar.colors} />
+        return <SliderBars barPosition={position} positions={this.state.barPositions} color={this.props.settings.bars.colors} />
     }
 
     renderHandles(){
@@ -167,7 +171,7 @@ class SliderNew extends Component {
         return handles;
     }
 
-    renderVerticalSlider(){
+    renderHorizontalSlider(){
         var pips,bars,handles;
 
         if( this.state.sliderHeight > 0 ){
@@ -177,7 +181,7 @@ class SliderNew extends Component {
         }
 
         return(
-            <div style={{width:"100%",position:"absolute", top:"17px", bottom:"17px"}} id={this.state.sliderId}>
+            <div style={{height:"100%",position:"absolute", left:"17px", right:"17px"}} id={this.state.sliderId}>
                 {pips}
                 {bars}
                 {handles}
@@ -187,11 +191,11 @@ class SliderNew extends Component {
 
     render() {
         return (
-            <div style={{height:"100%",width:"40px",backgroundColor:"#EDF2F4",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
-                {this.renderVerticalSlider()}
+            <div style={{height:"width%",height:"40px",backgroundColor:"#EDF2F4",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
+                {this.renderHorizontalSlider()}
             </div>
         );
     }
 }
 
-export default SliderNew;
+export default SliderHorizontal;
