@@ -42,7 +42,7 @@ class SliderPipsHorizontal extends Component {
 
     render() {
         return (
-            <div style={{width:"100%",marginTop:"65px",position:"absolute",textAlign:"top",fontSize:"11px",color:"#134F63",opacity:".5",marginLeft:"-10px"}}>
+            <div style={{width:"100%",marginTop:"68px",position:"absolute",textAlign:"top",fontSize:"11px",color:"#134F63",opacity:".5",marginLeft:"-10px"}}>
                 {this.renderPips()}
             </div>
         )

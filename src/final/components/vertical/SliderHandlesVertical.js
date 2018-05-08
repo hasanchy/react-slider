@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import SliderBar from './SliderBar';
 
-class SliderHandles extends Component {
+class SliderHandlesVertical extends Component {
 
     constructor(props) {
         super(props);
@@ -65,24 +65,10 @@ class SliderHandles extends Component {
             that.handleDragEnd(e);
         }, false);
 
-        // var obj = {
-        //     value:this.state.value,
-        //     position:this.state.position
-        // }
         this.props.onLoad(this.props.index, this.state.value, this.state.position)
     }
 
     componentWillReceiveProps( nextProps ){
-        /*var nextPropsValue = parseInt(nextProps.value, 10);
-        if( nextPropsValue !== this.props.value ){
-
-            var position = this.getPosition(nextPropsValue);
-            this.setState({
-                value:nextPropsValue,
-                position: position
-            })
-        }*/
-
 
         if(this.props.rangeMin !== nextProps.rangeMin || this.props.rangeMax !== nextProps.rangeMax || this.props.zIndex !== nextProps.zIndex){
             var rangeMin = parseInt(nextProps.rangeMin, 10);
@@ -105,10 +91,6 @@ class SliderHandles extends Component {
 
     componentDidUpdate( prevProps, prevState ){
         if(this.state.drag){
-            // var obj = {
-            //     value:this.state.value,
-            //     position:this.state.position
-            // }
             this.props.onDrag(this.props.index, this.state.value, this.state.position)
         }
     }
@@ -116,16 +98,16 @@ class SliderHandles extends Component {
     getPosition(value){
         var min = parseInt(this.props.valueMin, 10);
         var max = parseInt(this.props.valueMax, 10);
-        var sliderHeight = parseInt(this.props.sliderHeight, 10);
-        return ( (value-min) / (max-min) ) * sliderHeight;
+        var sliderLength = parseInt(this.props.sliderLength, 10);
+        return ( (value-min) / (max-min) ) * sliderLength;
     }
 
     getValue( postion ){
         var min = parseInt(this.props.valueMin, 10);
         var max = parseInt(this.props.valueMax, 10);
-        var sliderHeight = parseInt(this.props.sliderHeight, 10);
+        var sliderLength = parseInt(this.props.sliderLength, 10);
 
-      	return ( Math.round( (max-min) * (postion/sliderHeight) ) + min );
+      	return ( Math.round( (max-min) * (postion/sliderLength) ) + min );
   	}
 
     handleDragStart(e){
@@ -200,4 +182,4 @@ class SliderHandles extends Component {
     }
 }
 
-export default SliderHandles;
+export default SliderHandlesVertical;

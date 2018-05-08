@@ -8,13 +8,13 @@ var sliderSettingsHorizontal = {
     orientation:'horizontal', //'horizontal', 'vertical',
     direction:'ltr', //ltr,rtl (for vertical orientation:ltr=ttb, rtl=btt)
     range:{
-        'min':0,
-        'max':10
+        'min':-100,
+        'max':100
     },
     handles:{
-        min:0,
-        max:9,
-        margin:2
+        min:-100,
+        max:99,
+        margin:0
     },
     pips:{
         density:100, //The density value controls how many pips are placed on one percent of the slider range. With the default value of 1, there is one pip per percent. For a value of 10, a pip is placed for every 10 percent.
@@ -25,9 +25,9 @@ var sliderSettingsHorizontal = {
     }
 }
 
-var value = [0,9];
+var valueHorizontal = [5,7];
 
-/*
+
 var sliderSettingsVertical = {
     type:"default", //default, segment
     orientation:'vertical', //'horizontal', 'vertical',
@@ -39,7 +39,7 @@ var sliderSettingsVertical = {
     handles:{
         min:10,
         max:90,
-        margin: 1 //The minimum distance between the handles can be set using the margin option.,
+        margin: 0 //The minimum distance between the handles can be set using the margin option.,
     },
     pips:{
         density:10, //The density value controls how many pips are placed on one percent of the slider range. With the default value of 1, there is one pip per percent. For a value of 10, a pip is placed for every 10 percent.
@@ -49,7 +49,8 @@ var sliderSettingsVertical = {
         colors:[ '#D25A53','#FFFFFF', '#20907D', '#20907D' ]
     }
 }
-*/
+var valueVertical = [30,50];
+
 
 /*
 var sliderSettingsOld = {
@@ -84,11 +85,11 @@ const App = () => (
 
     <div>
         <div style={{border:"1px solid #efefef", width:"450px", height:"70px", padding:"15px",float:"left",position:"relative"}}>
-            <Slider value={value} settings={sliderSettingsHorizontal} onDragMove={handleDragMove} onDragEnd={handleDragEnd}/>
+            <Slider value={valueHorizontal} settings={sliderSettingsHorizontal} onDragMove={handleDragMove} onDragEnd={handleDragEnd}/>
         </div>
-        {/*<div style={{border:"1px solid #efefef",padding:"20px 20px 20px 60px",height:"500px",float:"left",position:"relative"}}>
-            <SliderNew value={value} settings={sliderSettingsVertical} onDragMove={handleDragMove} onDragEnd={handleDragEnd}/>
-        </div>*/}
+        <div style={{border:"1px solid #efefef",padding:"20px 20px 20px 60px",height:"500px",float:"left",position:"relative"}}>
+            <Slider value={valueVertical} settings={sliderSettingsVertical} onDragMove={handleDragMove} onDragEnd={handleDragEnd}/>
+        </div>
         <div style={{padding:"50px",height:"500px",float:"left"}}>
             {/*<Slider value={value} settings={sliderSettingsOld} onDragMove={handleDragMove} onDragEnd={handleDragEnd}/>*/}
         </div>

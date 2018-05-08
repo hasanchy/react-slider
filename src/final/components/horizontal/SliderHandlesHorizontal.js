@@ -65,24 +65,10 @@ class SliderHandlesHorizontal extends Component {
             that.handleDragEnd(e);
         }, false);
 
-        // var obj = {
-        //     value:this.state.value,
-        //     position:this.state.position
-        // }
         this.props.onLoad(this.props.index, this.state.value, this.state.position)
     }
 
     componentWillReceiveProps( nextProps ){
-        /*var nextPropsValue = parseInt(nextProps.value, 10);
-        if( nextPropsValue !== this.props.value ){
-
-            var position = this.getPosition(nextPropsValue);
-            this.setState({
-                value:nextPropsValue,
-                position: position
-            })
-        }*/
-
 
         if(this.props.rangeMin !== nextProps.rangeMin || this.props.rangeMax !== nextProps.rangeMax || this.props.zIndex !== nextProps.zIndex){
             var rangeMin = parseInt(nextProps.rangeMin, 10);
@@ -105,10 +91,6 @@ class SliderHandlesHorizontal extends Component {
 
     componentDidUpdate( prevProps, prevState ){
         if(this.state.drag){
-            // var obj = {
-            //     value:this.state.value,
-            //     position:this.state.position
-            // }
             this.props.onDrag(this.props.index, this.state.value, this.state.position)
         }
     }
@@ -182,16 +164,37 @@ class SliderHandlesHorizontal extends Component {
         return pageX;
     }
 
+    renderCircle(){
+        return <div style={{width:"14px",height:"14px",backgroundColor:"white",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",top:"7px",marginLeft:"-13px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>
+    }
+
+    renderMarker(){
+        return <div style={{zIndex:1,height:"30px",width:"1px",backgroundColor:"#134F63",position:"absolute",left:"0.5px",marginTop:"35px"}}></div>
+    }
+
+    renderValueLeft(){
+        var value = ( this.state.value >= this.props.valueMin ) ? this.state.value : "";
+            return <div style={{zIndex:0,width:"100px",textAlign:"right",display:'block',marginTop:"50px",marginLeft:"-100px",position:"absolute",fontSize:"14px",color:"#134F63",fontWeight:"bold"}}>
+                <div style={{padding:"0px 5px 0px 5px",display:"inline",border:"0px solid #cccccc",backgroundColor:"#FFFFFF"}}>{value}</div>
+            </div>
+    }
+
+    renderValueRight(){
+        var value = this.state.value + 1;
+        var value = ( (this.state.value + 1) <= this.props.valueMax ) ? (this.state.value + 1) : "";
+        return <div style={{zIndex:0,width:"100px",display:'block',marginTop:"50px",marginLeft:"0px",position:"absolute",fontSize:"14px",color:"#134F63",fontWeight:"bold"}}>
+            <div style={{padding:"0px 5px 0px 7px",display:"inline",border:"0px solid #cccccc",backgroundColor:"#FFFFFF"}}>{value}</div>
+        </div>
+    }
+
     renderHandles(){
-        var display = (this.state.drag)?"block":"block";
-        var fontSize = (this.state.drag)?14:14;
-        var maxValue = this.state.value + 1;
         return (
             <div style={{position:"absolute",left:this.state.position,cursor:"pointer",zIndex:this.state.zIndex}} id={this.state.handleId}>
-                <div style={{width:"14px",height:"14px",backgroundColor:"white",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",top:"7px",marginLeft:"-13px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>
-                <div style={{height:"30px",width:"1px",backgroundColor:"#134F63",position:"absolute",left:"0.5px",marginTop:"35px"}}></div>
-                <div style={{display:display,marginTop:"50px",marginLeft:"-10px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{this.state.value}</div>
-                <div style={{display:display,marginTop:"50px",marginLeft:"6px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{maxValue}</div>
+                {this.renderCircle()}
+                {this.renderMarker()}
+                {this.renderValueLeft()}
+                {this.renderValueRight()}
+
             </div>
         )
     }

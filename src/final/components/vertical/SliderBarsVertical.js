@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import SliderBar from './SliderBar';
 
-class SliderBars extends Component {
+class SliderBarsVertical extends Component {
 
     constructor(props) {
         super(props);
@@ -39,4 +39,4 @@ class SliderBars extends Component {
     }
 }
 
-export default SliderBars;
+export default SliderBarsVertical;

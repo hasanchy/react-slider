@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import SliderBar from './SliderBar';
 
-class SliderPips extends Component {
+class SliderPipsVertical extends Component {
 
     constructor(props) {
         super(props);
@@ -11,14 +11,14 @@ class SliderPips extends Component {
     }
 
     shouldComponentUpdate( nextProps, nextState ){
-        return (nextProps.sliderHeight !== this.props.sliderHeight) ? true : false;
+        return (nextProps.sliderLength !== this.props.sliderLength) ? true : false;
     }
 
     getPipPosition(value){
         var min = parseInt(this.props.min, 10);
         var max = parseInt(this.props.max, 10);
-        var sliderHeight = parseInt(this.props.sliderHeight, 10);
-        return ( (value-min) / (max-min) ) * sliderHeight;
+        var sliderLength = parseInt(this.props.sliderLength, 10);
+        return ( (value-min) / (max-min) ) * sliderLength;
     }
 
     handleValueClick(value, e){
@@ -52,4 +52,4 @@ class SliderPips extends Component {
     }
 }
 
-export default SliderPips;
+export default SliderPipsVertical;

@@ -213,7 +213,23 @@ class Slider extends Component {
     }
 
     renderVerticalSlider(){
+        var pips,bars,handles;
 
+        if( this.state.sliderLength > 0 ){
+            pips = this.renderPips( SliderPipsVertical );
+            bars = this.renderBars( SliderBarsVertical );
+            handles = this.renderHandles( SliderHandlesVertical );
+        }
+
+        return(
+            <div style={{height:"100%",width:"40px",backgroundColor:"#EDF2F4",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
+                <div style={{width:"100%",position:"absolute", top:"17px", bottom:"17px"}} id={this.state.sliderId}>
+                    {pips}
+                    {bars}
+                    {handles}
+                </div>
+            </div>
+        )
     }
 
     render() {
