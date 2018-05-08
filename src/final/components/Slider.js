@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import SliderPips from './SliderPips';
-import SliderHandles from './SliderHandles';
-import SliderBars from './SliderBars';
 
-class SliderHorizontal extends Component {
+import SliderPipsHorizontal from './horizontal/SliderPipsHorizontal';
+import SliderHandlesHorizontal from './horizontal/SliderHandlesHorizontal';
+import SliderBarsHorizontal from './horizontal/SliderBarsHorizontal';
+
+import SliderPipsVertical from './vertical/SliderPipsVertical';
+import SliderHandlesVertical from './vertical/SliderHandlesVertical';
+import SliderBarsVertical from './vertical/SliderBarsVertical';
+
+class Slider extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             sliderId: "slider" + Math.floor((Math.random() * 100000) + 1),
-            sliderSize:0,
+            sliderLength:0,
             handlePosition:0,
             value:0,
             values:[],
@@ -32,11 +37,17 @@ class SliderHorizontal extends Component {
 
     componentDidMount(){
         var element = document.getElementById(this.state.sliderId);
-        if(element && element.clientWidth > 0 ){
-            this.setClientWidth();
+        var sliderLength = 0
+
+        if(element){
+            sliderLength = (this.props.settings.orientation == "horizontal") ? element.clientWidth : element.clientHeight;
+        }
+
+        if( sliderLength > 0 ){
+            this.setSliderLenght();
         }else{
             this.setState({
-                intervalId: setInterval(this.setClientWidth, 100)
+                intervalId: setInterval(this.setSliderLenght, 100)
             })
         }
     }
@@ -45,19 +56,22 @@ class SliderHorizontal extends Component {
         var valueMin = parseInt(this.props.settings.range.min, 10);
         var valueMax = parseInt(this.props.settings.range.max, 10);
 
+        var handleMin = ( this.props.settings.handles ) ? parseInt(this.props.settings.handles.min, 10) : valueMin;
+        var handleMax = ( this.props.settings.handles ) ? parseInt(this.props.settings.handles.max, 10) : valueMax;
+
         var handleSettings = []
 
         var firstIndex = 0;
         var lastIndex = value.length-1;
 
-        var margin = 1;
+        var margin = ( this.props.settings.handles && this.props.settings.handles.margin ) ? parseInt(this.props.settings.handles.margin, 10) : 0;
 
         for( var i = firstIndex; i<=lastIndex; i++ ){
             var previousIndex = i - 1;
             var nextIndex = i + 1;
 
-            var rangeMin = ( i === firstIndex ) ? ((valueMin-1) + margin) : value[previousIndex];
-            var rangeMax = ( i === lastIndex ) ? (valueMax-margin) : value[nextIndex];
+            var rangeMin = ( i === firstIndex ) ? handleMin : value[previousIndex] + margin;
+            var rangeMax = ( i === lastIndex ) ? handleMax : value[nextIndex] - margin;
             var settingsObj = {
                 value: value[i],
                 valueMin: valueMin,
@@ -101,11 +115,16 @@ class SliderHorizontal extends Component {
         return zIndex;
     }
 
-    setClientWidth(){
+    setSliderLenght(){
         var element = document.getElementById(this.state.sliderId);
-        if(element && element.clientWidth > 0 ){
+        var sliderLength = 0;
+        if(element){
+            sliderLength = (this.props.settings.orientation == "horizontal") ? element.clientWidth : element.clientHeight;
+        }
+
+        if(sliderLength > 0 ){
             this.setState({
-                sliderSize:element.clientWidth
+                sliderLength:sliderLength
             })
             if(this.state.intervalId){
                 clearInterval(this.state.intervalId);
@@ -154,19 +173,19 @@ class SliderHorizontal extends Component {
         this.props.onDragEnd(values)
     }
 
-    renderPips(){
-        return <SliderPips sliderSize={this.state.sliderSize} min={this.props.settings.range.min} max={this.props.settings.range.max} density="10" onClick={this.handleValueClick.bind(this)}/>
+    renderPips(SliderPips){
+        return <SliderPips sliderLength={this.state.sliderLength} min={this.props.settings.range.min} max={this.props.settings.range.max} density="10" onClick={this.handleValueClick.bind(this)}/>
     }
 
-    renderBars(){
-        var position = this.state.handlePosition+"px";
-        return <SliderBars barPosition={position} positions={this.state.barPositions} color={this.props.settings.bars.colors} />
+    renderBars(SliderBars){
+        return <SliderBars positions={this.state.barPositions} color={this.props.settings.bars.colors} />
     }
 
-    renderHandles(){
+    renderHandles(SliderHandles){
         var handles = [];
+
         for( var i in this.state.handleSettings ){
-            handles.push(<SliderHandles key={i} sliderSize={this.state.sliderSize} index={i} zIndex={this.state.zIndex[i]} value={this.state.handleSettings[i].value} valueMin={this.state.handleSettings[i].valueMin}
+            handles.push(<SliderHandles key={i} sliderLength={this.state.sliderLength} index={i} zIndex={this.state.zIndex[i]} value={this.state.handleSettings[i].value} valueMin={this.state.handleSettings[i].valueMin}
             valueMax={this.state.handleSettings[i].valueMax} rangeMin={this.state.handleSettings[i].rangeMin} rangeMax={this.state.handleSettings[i].rangeMax} onLoad={this.handleOnLoad.bind(this)} onDragStart={this.handleDragStart.bind(this)} onDrag={this.handleDrag.bind(this)} onDragEnd={this.handleDragEnd.bind(this)}/>)
         }
 
@@ -176,28 +195,35 @@ class SliderHorizontal extends Component {
     renderHorizontalSlider(){
         var pips,bars,handles;
 
-        if( this.state.sliderSize > 0 ){
-            pips = this.renderPips();
-            bars = this.renderBars();
-            handles = this.renderHandles();
+        if( this.state.sliderLength > 0 ){
+            pips = this.renderPips( SliderPipsHorizontal );
+            bars = this.renderBars( SliderBarsHorizontal );
+            handles = this.renderHandles( SliderHandlesHorizontal );
         }
 
         return(
-            <div style={{height:"100%",position:"absolute", left:"17px", right:"17px"}} id={this.state.sliderId}>
-                {pips}
-                {bars}
-                {handles}
+            <div style={{height:"40px",backgroundColor:"#EDF2F4",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
+                <div style={{height:"100%",position:"absolute", left:"17px", right:"17px"}} id={this.state.sliderId}>
+                    {pips}
+                    {bars}
+                    {handles}
+                </div>
             </div>
         )
     }
 
+    renderVerticalSlider(){
+
+    }
+
     render() {
+
+        var sliderHtml = (this.props.settings.orientation == "horizontal") ? this.renderHorizontalSlider() : this.renderVerticalSlider();
+
         return (
-            <div style={{height:"width%",height:"40px",backgroundColor:"#EDF2F4",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
-                {this.renderHorizontalSlider()}
-            </div>
+            sliderHtml
         );
     }
 }
 
-export default SliderHorizontal;
+export default Slider;

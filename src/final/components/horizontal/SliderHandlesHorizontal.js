@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import SliderBar from './SliderBar';
 
-class SliderHandles extends Component {
+class SliderHandlesHorizontal extends Component {
 
     constructor(props) {
         super(props);
@@ -116,16 +116,16 @@ class SliderHandles extends Component {
     getPosition(value){
         var min = parseInt(this.props.valueMin, 10)-1;
         var max = parseInt(this.props.valueMax, 10);
-        var sliderSize = parseInt(this.props.sliderSize, 10);
-        return ( (value-min) / (max-min) ) * sliderSize;
+        var sliderLength = parseInt(this.props.sliderLength, 10);
+        return ( (value-min) / (max-min) ) * sliderLength;
     }
 
     getValue( postion ){
         var min = parseInt(this.props.valueMin, 10)-1;
         var max = parseInt(this.props.valueMax, 10);
-        var sliderSize = parseInt(this.props.sliderSize, 10);
+        var sliderLength = parseInt(this.props.sliderLength, 10);
 
-      	return ( Math.round( (max-min) * (postion/sliderSize) ) + min );
+      	return ( Math.round( (max-min) * (postion/sliderLength) ) + min );
   	}
 
     handleDragStart(e){
@@ -185,7 +185,6 @@ class SliderHandles extends Component {
     renderHandles(){
         var display = (this.state.drag)?"block":"block";
         var fontSize = (this.state.drag)?14:14;
-        var fontMarginTop = (fontSize/2)+1;
         var maxValue = this.state.value + 1;
         return (
             <div style={{position:"absolute",left:this.state.position,cursor:"pointer",zIndex:this.state.zIndex}} id={this.state.handleId}>
@@ -202,4 +201,4 @@ class SliderHandles extends Component {
     }
 }
 
-export default SliderHandles;
+export default SliderHandlesHorizontal;

@@ -7,7 +7,7 @@ class SliderHandles extends Component {
         super(props);
         this.state = {
             drag:false,
-            pageX:0,
+            pageY:0,
             handleId: "handle" + Math.floor((Math.random() * 100000) + 1),
             value:0,
             position:0,
@@ -114,45 +114,45 @@ class SliderHandles extends Component {
     }
 
     getPosition(value){
-        var min = parseInt(this.props.valueMin, 10)-1;
+        var min = parseInt(this.props.valueMin, 10);
         var max = parseInt(this.props.valueMax, 10);
-        var sliderSize = parseInt(this.props.sliderSize, 10);
-        return ( (value-min) / (max-min) ) * sliderSize;
+        var sliderHeight = parseInt(this.props.sliderHeight, 10);
+        return ( (value-min) / (max-min) ) * sliderHeight;
     }
 
     getValue( postion ){
-        var min = parseInt(this.props.valueMin, 10)-1;
+        var min = parseInt(this.props.valueMin, 10);
         var max = parseInt(this.props.valueMax, 10);
-        var sliderSize = parseInt(this.props.sliderSize, 10);
+        var sliderHeight = parseInt(this.props.sliderHeight, 10);
 
-      	return ( Math.round( (max-min) * (postion/sliderSize) ) + min );
+      	return ( Math.round( (max-min) * (postion/sliderHeight) ) + min );
   	}
 
     handleDragStart(e){
-        var pageX = this.getPageX(e);
+        var pageY = this.getPageY(e);
         this.setState({
             drag:true,
-            pageX:pageX
+            pageY:pageY
         });
         this.props.onDragStart(this.props.index, this.state.value, this.state.position)
     }
 
     handleDragMove(e){
         if(this.state.drag){
-            var pageX = this.getPageX(e);
-            var newPosition = this.state.position + (pageX - this.state.pageX);
+            var pageY = this.getPageY(e);
+            var newPosition = this.state.position + (pageY - this.state.pageY);
 
             if( newPosition <= this.state.positionMin ){
-                pageX = pageX + (this.state.positionMin - newPosition);
+                pageY = pageY + (this.state.positionMin - newPosition);
                 newPosition = this.state.positionMin;
             }else if( newPosition >= this.state.positionMax ){
-                pageX = pageX - (newPosition - this.state.positionMax);
+                pageY = pageY - (newPosition - this.state.positionMax);
                 newPosition = this.state.positionMax;
             }
             var newValue = this.getValue(newPosition);
 
             this.setState({
-                pageX:pageX,
+                pageY:pageY,
                 value:newValue,
                 position: newPosition
             });
@@ -170,29 +170,27 @@ class SliderHandles extends Component {
         }
     }
 
-    getPageX( e ){
-        var pageX;
+    getPageY( e ){
+        var pageY;
 
         if(e.touches){
-            pageX = e.touches[0].clientX;
+            pageY = e.touches[0].clientY;
         }else{
-            pageX = e.pageX || e.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+            pageY = e.pageY || e.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
         }
 
-        return pageX;
+        return pageY;
     }
 
     renderHandles(){
         var display = (this.state.drag)?"block":"block";
-        var fontSize = (this.state.drag)?14:14;
+        var fontSize = (this.state.drag)?16:14;
         var fontMarginTop = (fontSize/2)+1;
-        var maxValue = this.state.value + 1;
         return (
-            <div style={{position:"absolute",left:this.state.position,cursor:"pointer",zIndex:this.state.zIndex}} id={this.state.handleId}>
-                <div style={{width:"14px",height:"14px",backgroundColor:"white",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",top:"7px",marginLeft:"-13px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>
-                <div style={{height:"30px",width:"1px",backgroundColor:"#134F63",position:"absolute",left:"0.5px",marginTop:"35px"}}></div>
-                <div style={{display:display,marginTop:"50px",marginLeft:"-10px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{this.state.value}</div>
-                <div style={{display:display,marginTop:"50px",marginLeft:"6px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{maxValue}</div>
+            <div style={{position:"absolute",top:this.state.position,cursor:"pointer",zIndex:this.state.zIndex}} id={this.state.handleId}>
+                <div style={{width:"14px",height:"14px",backgroundColor:"white",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",left:"7px",marginTop:"-14px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>
+                <div style={{width:"16px",height:"1px",backgroundColor:"#134F63",position:"absolute",left:"-8px",marginTop:"-.5px"}}></div>
+                <div style={{display:display,marginTop:"-"+fontMarginTop+"px",right:"10px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{this.state.value}</div>
             </div>
         )
     }
