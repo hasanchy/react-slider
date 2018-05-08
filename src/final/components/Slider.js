@@ -52,26 +52,46 @@ class Slider extends Component {
         }
     }
 
+    getHandleBoundery(valueMin,valueMax){
+        var min, max;
+        if( this.props.settings.type == "segment" ){
+            min = ( this.props.settings.handles && this.props.settings.handles.min) ? parseInt(this.props.settings.handles.min, 10) : valueMin-1;
+            max = ( this.props.settings.handles && this.props.settings.handles.max ) ? parseInt(this.props.settings.handles.max, 10) : valueMax;
+        }else{
+            min = ( this.props.settings.handles && this.props.settings.handles.min) ? parseInt(this.props.settings.handles.min, 10) : valueMin;
+            max = ( this.props.settings.handles && this.props.settings.handles.max ) ? parseInt(this.props.settings.handles.max, 10) : valueMax;
+        }
+
+        if( this.props.settings.range.margin ){
+            var marginRange = parseInt( this.props.settings.range.margin, 10 );
+            min += marginRange;
+            max -= marginRange;
+        }
+        return({
+            min:min,
+            max:max
+        })
+    }
+
     getHandleSettings( value ){
+        var handleSettings = []
+
         var valueMin = parseInt(this.props.settings.range.min, 10);
         var valueMax = parseInt(this.props.settings.range.max, 10);
 
-        var handleMin = ( this.props.settings.handles ) ? parseInt(this.props.settings.handles.min, 10) : valueMin;
-        var handleMax = ( this.props.settings.handles ) ? parseInt(this.props.settings.handles.max, 10) : valueMax;
-
-        var handleSettings = []
+        var handleBoundery = this.getHandleBoundery(valueMin,valueMax);
 
         var firstIndex = 0;
         var lastIndex = value.length-1;
 
-        var margin = ( this.props.settings.handles && this.props.settings.handles.margin ) ? parseInt(this.props.settings.handles.margin, 10) : 0;
+        var marginHandle = ( this.props.settings.handles && this.props.settings.handles.margin ) ? parseInt(this.props.settings.handles.margin, 10) : 0;
 
         for( var i = firstIndex; i<=lastIndex; i++ ){
             var previousIndex = i - 1;
             var nextIndex = i + 1;
 
-            var rangeMin = ( i === firstIndex ) ? handleMin : value[previousIndex] + margin;
-            var rangeMax = ( i === lastIndex ) ? handleMax : value[nextIndex] - margin;
+            var rangeMin = ( i === firstIndex ) ? handleBoundery['min'] : value[previousIndex] + marginHandle;
+            var rangeMax = ( i === lastIndex ) ? handleBoundery['max'] : value[nextIndex] - marginHandle;
             var settingsObj = {
                 value: value[i],
                 valueMin: valueMin,
@@ -185,7 +205,7 @@ class Slider extends Component {
         var handles = [];
 
         for( var i in this.state.handleSettings ){
-            handles.push(<SliderHandles key={i} sliderLength={this.state.sliderLength} index={i} zIndex={this.state.zIndex[i]} value={this.state.handleSettings[i].value} valueMin={this.state.handleSettings[i].valueMin}
+            handles.push(<SliderHandles key={i} type={this.props.settings.type} sliderLength={this.state.sliderLength} index={i} zIndex={this.state.zIndex[i]} value={this.state.handleSettings[i].value} valueMin={this.state.handleSettings[i].valueMin}
             valueMax={this.state.handleSettings[i].valueMax} rangeMin={this.state.handleSettings[i].rangeMin} rangeMax={this.state.handleSettings[i].rangeMax} onLoad={this.handleOnLoad.bind(this)} onDragStart={this.handleDragStart.bind(this)} onDrag={this.handleDrag.bind(this)} onDragEnd={this.handleDragEnd.bind(this)}/>)
         }
 

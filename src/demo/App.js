@@ -8,12 +8,11 @@ var sliderSettingsHorizontal = {
     orientation:'horizontal', //'horizontal', 'vertical',
     direction:'ltr', //ltr,rtl (for vertical orientation:ltr=ttb, rtl=btt)
     range:{
-        'min':-100,
-        'max':100
+        min:0,
+        max:10,
+        margin:1
     },
     handles:{
-        min:-100,
-        max:99,
         margin:0
     },
     pips:{
@@ -37,8 +36,6 @@ var sliderSettingsVertical = {
         'max':100
     },
     handles:{
-        min:10,
-        max:90,
         margin: 0 //The minimum distance between the handles can be set using the margin option.,
     },
     pips:{
@@ -46,10 +43,10 @@ var sliderSettingsVertical = {
         label:"" //year, %, $, €
     },
     bars:{
-        colors:[ '#D25A53','#FFFFFF', '#20907D', '#20907D' ]
+        colors:[ '#20907D','#FFFFFF', '#D25A53', '#20907D' ]
     }
 }
-var valueVertical = [30,50];
+var valueVertical = [80];
 
 
 /*
@@ -79,7 +76,7 @@ function handleDragMove(value){
 
 function handleDragEnd(value){
     //console.log( "Slider value recieved" );
-    //console.log(value)
+    console.log(value)
 }
 const App = () => (
 
