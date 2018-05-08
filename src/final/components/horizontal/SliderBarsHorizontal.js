@@ -25,10 +25,14 @@ class SliderBarsHorizontal extends Component {
         return innerBars;
     }
 
+    renderDefaultBar(){
+        return <div style={{position:"absolute",height:"100%",left:"0px",right:"0px",backgroundColor:this.props.color[0],borderRadius:"20px"}}></div>
+    }
+
     renderBars(){
         return (
             <div style={{backgroundColor:"#FFFFFF",height:"8px",borderRadius:"20px",width:"100%",top:"16px",position:"absolute",border:"1px solid #e6ebed"}}>
-                <div style={{position:"absolute",height:"100%",left:"0px",right:"0px",backgroundColor:this.props.color[0],borderRadius:"20px"}}></div>
+                {this.renderDefaultBar()}
                 {this.renderInnerBars()}
             </div>
         )

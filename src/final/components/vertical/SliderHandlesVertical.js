@@ -86,8 +86,8 @@ class SliderHandlesVertical extends Component {
     }
 
     shouldComponentUpdate( nextProps, nextState ){
-		return ( JSON.stringify(this.state) !== JSON.stringify(nextState) ) ? true : false;
-	}
+        return ( JSON.stringify(this.state) !== JSON.stringify(nextState) ) ? true : false;
+    }
 
     componentDidUpdate( prevProps, prevState ){
         if(this.state.drag){
@@ -107,8 +107,8 @@ class SliderHandlesVertical extends Component {
         var max = parseInt(this.props.valueMax, 10);
         var sliderLength = parseInt(this.props.sliderLength, 10);
 
-      	return ( Math.round( (max-min) * (postion/sliderLength) ) + min );
-  	}
+        return ( Math.round( (max-min) * (postion/sliderLength) ) + min );
+    }
 
     handleDragStart(e){
         var pageY = this.getPageY(e);
@@ -164,15 +164,40 @@ class SliderHandlesVertical extends Component {
         return pageY;
     }
 
-    renderHandles(){
+    renderCircle(){
+        {/*<div style={{width:"24px",height:"24px",backgroundColor:"#FFFFFF",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",left:"8px",marginTop:"-12px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>*/}
+        return <div style={{
+                width:"14px",
+                height:"14px",
+                backgroundColor:"white",
+                border:"solid 7px #134F63",
+                borderRadius:"50%",
+                position:"absolute",
+                left:"7px",
+                marginTop:"-14px",
+                opacity:"1",
+                transform:"scale(1)",
+                boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            </div>
+    }
+
+    renderMarker(){
+        return <div style={{width:"16px",height:"1px",backgroundColor:"#134F63",position:"absolute",left:"-8px",marginTop:"-.5px"}}></div>
+    }
+
+    renderValue(){
         var display = (this.state.drag)?"block":"block";
         var fontSize = (this.state.drag)?16:14;
         var fontMarginTop = (fontSize/2)+1;
+        return <div style={{display:display,marginTop:"-"+fontMarginTop+"px",right:"10px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{this.state.value}</div>
+    }
+
+    renderHandles(){
         return (
             <div style={{position:"absolute",top:this.state.position,cursor:"pointer",zIndex:this.state.zIndex}} id={this.state.handleId}>
-                <div style={{width:"14px",height:"14px",backgroundColor:"white",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",left:"7px",marginTop:"-14px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>
-                <div style={{width:"16px",height:"1px",backgroundColor:"#134F63",position:"absolute",left:"-8px",marginTop:"-.5px"}}></div>
-                <div style={{display:display,marginTop:"-"+fontMarginTop+"px",right:"10px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold",backgroundColor:"#FFFFFF"}}>{this.state.value}</div>
+                {this.renderCircle()}
+                {this.renderMarker()}
+                {this.renderValue()}
             </div>
         )
     }

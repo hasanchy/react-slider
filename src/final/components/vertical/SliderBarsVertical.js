@@ -16,6 +16,10 @@ class SliderBarsVertical extends Component {
 		//return ( JSON.stringify(this.props) !== JSON.stringify(nextProps) ) ? true : false;
 	}
 
+    renderDefaultBar(){
+        return <div style={{position:"absolute",width:"100%",top:"0px",bottom:"0px",backgroundColor:this.props.color[0],borderRadius:"20px"}}></div>
+    }
+
     renderInnerBars(){
         var innerBars = [];
         for(var i in this.props.positions){
@@ -28,7 +32,7 @@ class SliderBarsVertical extends Component {
     renderBars(){
         return (
             <div style={{backgroundColor:"#FFFFFF",width:"8px",borderRadius:"20px",height:"100%",left:"16px",position:"absolute",border:"1px solid #e6ebed"}}>
-                <div style={{position:"absolute",width:"100%",top:"0px",bottom:"0px",backgroundColor:this.props.color[0],borderRadius:"20px"}}></div>
+                {this.renderDefaultBar()}
                 {this.renderInnerBars()}
             </div>
         )
