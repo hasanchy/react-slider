@@ -165,19 +165,8 @@ class SliderHandlesVertical extends Component {
     }
 
     renderCircle(){
-        {/*<div style={{width:"24px",height:"24px",backgroundColor:"#FFFFFF",border:"solid 7px #134F63",borderRadius:"50%",position:"absolute",left:"8px",marginTop:"-12px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}></div>*/}
-        return <div style={{
-                width:"14px",
-                height:"14px",
-                backgroundColor:"white",
-                border:"solid 7px #134F63",
-                borderRadius:"50%",
-                position:"absolute",
-                left:"7px",
-                marginTop:"-14px",
-                opacity:"1",
-                transform:"scale(1)",
-                boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+        return <div style={{width:"28px", height:"28px",backgroundColor:"#134F63",border:"solid 0px #134F63",borderRadius:"50%",position:"absolute",left:"7px",marginTop:"-14px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <div style={{borderRadius:"50%",backgroundColor:"#FFFFFF",width:"14px",height:"14px",top:"7px",left:"7px",position:"absolute"}}></div>
             </div>
     }
 
