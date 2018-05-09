@@ -165,14 +165,14 @@ class SliderHandlesHorizontal extends Component {
     }
 
     renderCircle(){
-        return <div id={this.state.handleId} style={{cursor:"pointer",width:"28px",height:"28px",backgroundColor:"#134F63",borderRadius:"50%",position:"absolute",top:"7px",marginLeft:"-13px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+        return <div id={this.state.handleId} style={{cursor:"pointer",width:"28px",height:"28px",backgroundColor:"#134F63",borderRadius:"50%",position:"absolute",top:"6px",marginLeft:"-13px",opacity:"1",transform:"scale(1)",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
             <div style={{borderRadius:"50%",backgroundColor:"#FFFFFF",width:"14px",height:"14px",top:"7px",left:"7px",position:"absolute"}}></div>
         </div>
     }
 
     renderMarker(){
-        var height = ( this.props.type == "segment" ) ? 30 : 16;
-        return <div style={{zIndex:1,height:height+"px",width:"1px",backgroundColor:"#134F63",position:"absolute",left:"0.5px",marginTop:"35px"}}></div>
+        var height = ( this.props.type == "segment" ) ? 29 : 16;
+        return <div style={{zIndex:1,height:height+"px",width:"1px",backgroundColor:"#134F63",position:"absolute",left:"0.5px",marginTop:"34px"}}></div>
     }
 
     renderValue(){
@@ -189,7 +189,7 @@ class SliderHandlesHorizontal extends Component {
     renderValueLeft(){
         var fontSize = (this.state.drag)?16:14;
         var value = ( this.state.value >= this.props.valueMin ) ? this.state.value : "";
-            return <div key={Math.random()} style={{zIndex:0,width:"100px",textAlign:"right",display:'block',marginTop:"50px",marginLeft:"-100px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
+            return <div key={Math.random()} style={{zIndex:0,width:"100px",textAlign:"right",display:'block',marginTop:"48px",marginLeft:"-100px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
                 <div style={{padding:"0px 5px 0px 5px",display:"inline",border:"0px solid #cccccc",backgroundColor:"#FFFFFF"}}>{value}</div>
             </div>
     }
@@ -197,7 +197,7 @@ class SliderHandlesHorizontal extends Component {
     renderValueRight(){
         var fontSize = (this.state.drag)?16:14;
         var value = ( (this.state.value + 1) <= this.props.valueMax ) ? (this.state.value + 1) : "";
-        return <div key={Math.random()} style={{zIndex:0,width:"100px",display:'block',marginTop:"50px",marginLeft:"0px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
+        return <div key={Math.random()} style={{zIndex:0,width:"100px",display:'block',marginTop:"48px",marginLeft:"0px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
             <div style={{padding:"0px 5px 0px 7px",display:"inline",border:"0px solid #cccccc",backgroundColor:"#FFFFFF"}}>{value}</div>
         </div>
     }
@@ -205,7 +205,7 @@ class SliderHandlesHorizontal extends Component {
     renderValueCenter(){
         var fontSize = (this.state.drag)?16:14;
         var value = ( this.state.value >= this.props.valueMin ) ? this.state.value : "";
-        return <div key={Math.random()} style={{padding:"0px 5px 0px 5px",display:"inline",zIndex:0,backgroundColor:"#FFFFFF",display:'block',marginTop:"50px",marginLeft:"-8px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
+        return <div key={Math.random()} style={{padding:"0px 5px 0px 5px",display:"inline",zIndex:0,backgroundColor:"#FFFFFF",display:'block',marginTop:"48px",marginLeft:"-8px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
             {value}
         </div>
     }
