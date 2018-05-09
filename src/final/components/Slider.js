@@ -194,7 +194,7 @@ class Slider extends Component {
     }
 
     renderPips(SliderPips){
-        return <SliderPips sliderLength={this.state.sliderLength} min={this.props.settings.range.min} max={this.props.settings.range.max} density="10" onClick={this.handleValueClick.bind(this)}/>
+        return <SliderPips sliderLength={this.state.sliderLength} min={this.props.settings.range.min} max={this.props.settings.range.max} density={this.props.settings.pips.density} onClick={this.handleValueClick.bind(this)}/>
     }
 
     renderBars(SliderBars){

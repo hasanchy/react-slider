@@ -34,12 +34,22 @@ class SliderPipsVertical extends Component {
         var pips = [];
 
         var pipValue = min;
-        var increament = density;
-        while( pipValue <= max ){
+        var increament = Math.round((max - min) * density/100);
+
+        var totalPips = Math.round(100/density);
+
+        for( var i=0; i<=totalPips; i ++) {
+            if(i===0){
+                pipValue = min;
+            }else if (i===totalPips) {
+                pipValue = max;
+            }else{
+                pipValue += increament;
+            }
             var position = this.getPipPosition(pipValue);
             pips.push(<div style={{top:position+"px",right:"0px",position:"absolute",padding:"3px 0px 3px 3px"}} key={Math.random()} onClick={this.handleValueClick.bind(this,pipValue)}>{pipValue}</div>);
-            pipValue += increament;
         }
+
         return pips;
     }
 
