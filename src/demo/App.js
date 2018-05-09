@@ -24,7 +24,7 @@ var sliderSettingsHorizontal = {
     }
 }
 
-var valueHorizontal = [5,7];
+var valueHorizontal = [5,70];
 
 
 var sliderSettingsVertical = {

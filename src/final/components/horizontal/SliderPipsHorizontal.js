@@ -35,7 +35,7 @@ class SliderPipsHorizontal extends Component {
 
         for( var i in pipValue ){
             var position = this.getPipPosition(pipValue[i]);
-            pips.push(<div style={{left:position+"px",bottom:"0px",marginLeft:"-16px",textAlign:"center",border:"0px solid #cccccc",width:"50px",position:"absolute",padding:"3px 0px 3px 3px"}} key={Math.random()} onClick={this.handleValueClick.bind(this,pipValue[i])}>{pipValue[i]}</div>);
+            pips.push(<div style={{left:position+"px",bottom:"0px",marginLeft:"-17px",textAlign:"center",border:"0px solid #cccccc",width:"50px",position:"absolute",padding:"3px 0px 3px 3px"}} key={Math.random()} onClick={this.handleValueClick.bind(this,pipValue[i])}>{pipValue[i]}</div>);
         }
         return pips;
     }
