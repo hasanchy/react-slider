@@ -8,8 +8,8 @@ var sliderSettingsHorizontal = {
     orientation:'horizontal', //'horizontal', 'vertical',
     direction:'ltr', //ltr,rtl (for vertical orientation:ltr=ttb, rtl=btt)
     range:{
-        min:0,
-        max:10,
+        min:-100,
+        max:100,
         margin:1
     },
     handles:{
