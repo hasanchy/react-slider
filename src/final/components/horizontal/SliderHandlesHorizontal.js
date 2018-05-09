@@ -187,22 +187,25 @@ class SliderHandlesHorizontal extends Component {
     }
 
     renderValueLeft(){
+        var fontSize = (this.state.drag)?16:14;
         var value = ( this.state.value >= this.props.valueMin ) ? this.state.value : "";
-            return <div key={Math.random()} style={{zIndex:0,width:"100px",textAlign:"right",display:'block',marginTop:"50px",marginLeft:"-100px",position:"absolute",fontSize:"14px",color:"#134F63",fontWeight:"bold"}}>
+            return <div key={Math.random()} style={{zIndex:0,width:"100px",textAlign:"right",display:'block',marginTop:"50px",marginLeft:"-100px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
                 <div style={{padding:"0px 5px 0px 5px",display:"inline",border:"0px solid #cccccc",backgroundColor:"#FFFFFF"}}>{value}</div>
             </div>
     }
 
     renderValueRight(){
+        var fontSize = (this.state.drag)?16:14;
         var value = ( (this.state.value + 1) <= this.props.valueMax ) ? (this.state.value + 1) : "";
-        return <div key={Math.random()} style={{zIndex:0,width:"100px",display:'block',marginTop:"50px",marginLeft:"0px",position:"absolute",fontSize:"14px",color:"#134F63",fontWeight:"bold"}}>
+        return <div key={Math.random()} style={{zIndex:0,width:"100px",display:'block',marginTop:"50px",marginLeft:"0px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
             <div style={{padding:"0px 5px 0px 7px",display:"inline",border:"0px solid #cccccc",backgroundColor:"#FFFFFF"}}>{value}</div>
         </div>
     }
 
     renderValueCenter(){
+        var fontSize = (this.state.drag)?16:14;
         var value = ( this.state.value >= this.props.valueMin ) ? this.state.value : "";
-        return <div key={Math.random()} style={{padding:"0px 5px 0px 5px",display:"inline",zIndex:0,backgroundColor:"#FFFFFF",display:'block',marginTop:"50px",marginLeft:"-8px",position:"absolute",fontSize:"14px",color:"#134F63",fontWeight:"bold"}}>
+        return <div key={Math.random()} style={{padding:"0px 5px 0px 5px",display:"inline",zIndex:0,backgroundColor:"#FFFFFF",display:'block',marginTop:"50px",marginLeft:"-8px",position:"absolute",fontSize:fontSize+"px",color:"#134F63",fontWeight:"bold"}}>
             {value}
         </div>
     }
