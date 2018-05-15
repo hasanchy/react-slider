@@ -26,12 +26,11 @@ class Slider extends Component {
     }
 
     componentWillMount(){
-        var value = parseInt(this.props.value[0], 10);
+        var topHadleIndex = parseInt(this.props.topHadleIndex,10);
         this.setState({
-            value:value,
-            values: this.props.value,
-            handleSettings:this.getHandleSettings(this.props.value),
-            zIndex:this.getzIndex(0)
+            values: JSON.parse(JSON.stringify(this.props.value)),
+            handleSettings: this.getHandleSettings(this.props.value),
+            zIndex: this.getzIndex(topHadleIndex)
         })
     }
 
@@ -111,27 +110,28 @@ class Slider extends Component {
         var minIndex = 0;
         var maxIndex = this.props.value.length - 1;
 
-        if(zIndex.length){
-            var replacedzIndex = maxIndex;
-            for(var i in zIndex){
-                if(i == currentIndex){
-                    replacedzIndex = zIndex[i];
-                    zIndex[i] = maxIndex;
-                    break;
-                }
-            }
-
-            for(i in zIndex){
-                if( i != currentIndex && zIndex[i] > replacedzIndex){
-                    var nextIndex = zIndex[i] - 1;
-                    zIndex[i] = nextIndex;
-                }
-            }
-        }else{
+        if(!zIndex.length){
             for( var j = minIndex; j<= maxIndex; j++){
                 zIndex.push(j);
             }
         }
+
+        var replacedzIndex = maxIndex;
+        for(var i in zIndex){
+            if(i == currentIndex){
+                replacedzIndex = zIndex[i];
+                zIndex[i] = maxIndex;
+                break;
+            }
+        }
+
+        for(i in zIndex){
+            if( i != currentIndex && zIndex[i] > replacedzIndex){
+                var nextIndex = zIndex[i] - 1;
+                zIndex[i] = nextIndex;
+            }
+        }
+
         return zIndex;
     }
 
@@ -222,7 +222,7 @@ class Slider extends Component {
         }
 
         return(
-            <div style={{height:"40px",backgroundColor:"#EDF2F4",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
+            <div style={{height:"40px",width:"100%",backgroundColor:"#EDF2F4",borderRadius:"20px",position:"relative",border:"1px solid #e6ebed"}}>
                 <div style={{height:"100%",position:"absolute", left:"17px", right:"17px"}} id={this.state.sliderId}>
                     {pips}
                     {bars}
